@@ -1,0 +1,96 @@
+/* nav's bar */
+.nav-bar {
+  margin: -10px;
+  display: flex;
+  justify-content: center;
+  min-height: 20px;
+  background: #fb1756;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 5px 55px 50px -20px #b6b6b6; 
+}
+
+/* navs style */
+.all-pins-nav {
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.all-pins-nav:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.all-pins-nav-link {
+  text-decoration: none;
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.all-pins-nav-link:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.profile-nav {
+  margin-right: 70px;
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.profile-nav:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.profile-nav-link {
+  text-decoration: none;
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.profile-nav-link:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.sign-up-nav {
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.sign-up-nav:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.log-in-nav {
+  margin-right: 10px;
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.log-in-nav:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+/****************/
+.exit-nav {
+  margin-right: 10px;
+  color: black;
+  font-family: cursive;
+  font-weight: bold;
+}
+.exit-nav:hover {
+  color: #fffb83;
+  cursor: pointer;
+}
+
+/* div '|' */
+.pipe {
+  font-family: cursive;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
