@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    border-radius: 10px;
+    border: #777777 2px solid;
+    background-color: #b7b7b7;
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 10px 10px #888888;
+}
+
+/* PIN preview block */
+#pin-h {
+    color: black;
+    font-family: cursive;
+    text-align: center;
+}
+
+#pin-img {
+    display: block;
+    border-radius: 8px;
+    width: 70%;
+    margin: auto;
+}
+
+#pin-p {
+    color: #4e4e4e;
+    text-align: center;
+    text-decoration: underline;
+}
