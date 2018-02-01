@@ -2150,31 +2150,81 @@ class Header extends React.Component {
   }
   /*******************/
   handleLogIn() {
-    
+    window.location.href = "/auth/twitter";
   }
   /*******************/
   handleExit() {
-    
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/logout', true);
+
+    xhr.send();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+      if(response.error == 0) {
+        that.setState({
+          ["isLogedIn"]: false
+           });
+      }
+    }
   }
   /*******************/
   // Prerender methods
   /*******************/
   componentWillMount() {
-    
+    //get user information
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/user-inf', true);
+
+    xhr.send();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+      
+      if(response.isLogedIn === true) {
+        that.setState({
+          ["isLogedIn"]: true
+           });
+      }
+      
+      else {
+        that.setState({
+          ["isLogedIn"]: false
+           });
+      }
+    }
   }
   /*******************/
   render() {
+    let buttonLogInOrExit = "";
+    if(this.state.isLogedIn === true) {
+      buttonLogInOrExit = React.createElement("div", {className: "exit-nav", onClick: this.handleExit}, "Exit");
+    }
+    else {
+      buttonLogInOrExit = React.createElement("div", {className: "log-in-nav", onClick: this.handleLogIn}, "Log in");
+    }
     return (
        React.createElement("div", null, 
        /* NAV BAR */
-            React.createElement("nav", {className: "nav-bar"}, 
-              React.createElement("div", {className: "all-pins-nav"}, " ", React.createElement(Link, {to: "/allpins", className: "all-pins-nav-link"}, " All Pins "), " "), 
+        React.createElement("nav", {className: "nav-bar"}, 
+            React.createElement("div", {className: "all-pins-nav"}, " ", React.createElement(Link, {to: "/allpins", className: "all-pins-nav-link"}, " All Pins "), " "), 
             React.createElement("div", {className: "pipe"}, "|"), 
             React.createElement("div", {className: "profile-nav"}, " ", React.createElement(Link, {to: "/profile", className: "profile-nav-link"}, " Profile "), " "), 
-            React.createElement("div", {className: "sign-up-nav"}, "Sign up"), 
-            React.createElement("div", {className: "pipe"}, "|"), 
-          React.createElement("div", {className: "log-in-nav"}, "Log in"), 
-          React.createElement("div", {className: "exit-nav"}, "Exit")
+            buttonLogInOrExit
         )
       )
   );
@@ -26368,14 +26418,61 @@ const style = __webpack_require__(126);
 // other components
 const Header = __webpack_require__(26);
 
+const masonryOptions = {
+    transitionDuration: 0
+};
+
 /* the "Profile" component. Showsuser profile and allows user to add a card" */
-const Profile = function() {
-  return (
-    React.createElement("div", null, 
-      React.createElement(Header, null), 
-      React.createElement("h1", null, "PROFILE")
-    )
-  );
+class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        displayName: ""
+    }
+  }
+  /*******************/
+  // Prerender methods
+  /*******************/
+  componentWillMount() {
+    //get user information
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/user-inf', true);
+
+    xhr.send();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+
+      that.setState({
+        ["displayName"]: response.displayName
+         });
+    }
+  }
+  /*******************/
+  render(){
+    return (
+      React.createElement("div", null, 
+        React.createElement(Header, null), 
+        React.createElement("div", {className: "container"}, 
+          React.createElement("h1", {id: "profile-h"}, "Hello, ", this.state.displayName), 
+          React.createElement("div", {className: "pins"}, 
+            React.createElement("div", {className: "pin"}, 
+              React.createElement("img", {src: "", className: "pin-img"}), 
+              React.createElement("div", {className: "description"}, "description")
+            )
+          )
+        )
+        /* modal for adding new pin */
+      )
+    );
+  }
 };
 
 module.exports = Profile;
@@ -26439,7 +26536,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "   \n/* PROFILE block */\n#profile-h {\n text-align: center;\n margin-left: 20px;\n font-family: cursive;\n font-size: 30px;\n}\n\n@media only screen and (max-width: 500px) {\n  #profile-h {\n   text-align: center;\n   margin-left: 20px;\n   font-family: cursive;\n   font-size: 10px;\n  }\n}\n\n/* MASONRY */\n/* ---- grid ---- */\n\n.grid {\n  background: #EEE;\n  max-width: 1200px;\n}\n\n/* clearfix */\n.grid:after {\n  content: '';\n  display: block;\n  clear: both;\n}\n\n/* ---- grid-item ---- */\n\n.grid-sizer,\n.grid-item {\n  width: 20%;\n}\n\n.grid-item {\n  height: 120px;\n  float: left;\n  background: #D26;\n  border: 2px solid #333;\n  border-color: hsla(0, 0%, 0%, 0.5);\n  border-radius: 5px;\n}\n\n.grid-item--width2 { width:  40%; }\n.grid-item--width3 { width:  60%; }\n\n.grid-item--height2 { height: 200px; }\n.grid-item--height3 { height: 260px; }\n.grid-item--height4 { height: 360px; }", ""]);
 
 // exports
 
