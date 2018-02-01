@@ -32,31 +32,81 @@ class Header extends React.Component {
   }
   /*******************/
   handleLogIn() {
-    
+    window.location.href = "/auth/twitter";
   }
   /*******************/
   handleExit() {
-    
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/logout', true);
+
+    xhr.send();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+      if(response.error == 0) {
+        that.setState({
+          ["isLogedIn"]: false
+           });
+      }
+    }
   }
   /*******************/
   // Prerender methods
   /*******************/
   componentWillMount() {
-    
+    //get user information
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/user-inf', true);
+
+    xhr.send();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+      
+      if(response.isLogedIn === true) {
+        that.setState({
+          ["isLogedIn"]: true
+           });
+      }
+      
+      else {
+        that.setState({
+          ["isLogedIn"]: false
+           });
+      }
+    }
   }
   /*******************/
   render() {
+    let buttonLogInOrExit = "";
+    if(this.state.isLogedIn === true) {
+      buttonLogInOrExit = <div className="exit-nav" onClick={this.handleExit}>Exit</div>;
+    }
+    else {
+      buttonLogInOrExit = <div className="log-in-nav" onClick={this.handleLogIn}>Log in</div>;
+    }
     return (
        <div>
        {/* NAV BAR */}
-            <nav className="nav-bar">
-              <div className="all-pins-nav"> <Link to={"/allpins"} className="all-pins-nav-link"> All Pins </Link> </div>
+        <nav className="nav-bar">
+            <div className="all-pins-nav"> <Link to={"/allpins"} className="all-pins-nav-link"> All Pins </Link> </div>
             <div className="pipe">|</div>
             <div className="profile-nav"> <Link to={"/profile"} className="profile-nav-link"> Profile </Link> </div>
-            <div className="sign-up-nav">Sign up</div>
-            <div className="pipe">|</div>
-          <div className="log-in-nav">Log in</div>
-          <div className="exit-nav">Exit</div>
+            {buttonLogInOrExit}
         </nav>
       </div>
   );

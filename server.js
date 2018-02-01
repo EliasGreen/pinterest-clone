@@ -54,6 +54,19 @@ passport.use(new TwitterStrategy({
   function(token, tokenSecret, profile, done) {
     if(profile) {
         let user = profile;
+        userModel.findOne({displayName: profile.displayName, username: profile.username}, (err, doc) => {
+          if(doc) {
+            //do smth
+          }
+          else {
+            // create a user
+            let obj = {displayName: profile.displayName, username: profile.username, pins: []};
+            let user = new userModel(obj);
+            user.save(function (err) {
+              if (err) throw err;
+            });
+          }
+        });
         return done(null, user);
       }
   
@@ -95,22 +108,67 @@ promise_connection.then(function(db){
 let Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 let userSet = new Schema({
-    nickname: String,
-    polls: []
+    displayName: String,
+    username: String,
+    pins: []
 });
 // get the model
-let userModel = mongoose.model('users', userSet);
-
+let userModel = mongoose.model('pinsuser', userSet);
+/************************************************/
 /******************************/
 // handlers of pages
 /******************************/
-app.get("*", function(request, response) {
+/************************************************/
+app.get("/", function(request, response) {
   response.sendFile(__dirname + '/app/index.html');
 });
-
+/************************************************/
+app.get("/profile", function(request, response) {
+  response.sendFile(__dirname + '/app/index.html');
+});
+/************************************************/
+app.get("/allpins", function(request, response) {
+  response.sendFile(__dirname + '/app/index.html');
+});
+/************************************************/
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/twitter/return',
+passport.authenticate('twitter', { successRedirect: '/profile', failureRedirect: '/' }));
+/************************************************/
+/******************************/
+// POST REQUESTS
+/******************************/
+/************************************************/
+app.post("/logout", function(request, response) {
+          request.logout();
+          request.session.destroy(function(err) {
+           response.status(200).clearCookie('connect.sid', {path: '/'}).json({error: 0});
+          })
+    });
+/************************************************/
+app.post("/user-inf", function(request, response) {
+  // get user information
+  if(request.session.hasOwnProperty("passport")) {
+   userModel.findOne({displayName: request.session.passport.user.displayName, username: request.session.passport.user.username}, (err, document) => {
+       if(!err) {
+         response.json({isLogedIn: request.isAuthenticated(), displayName: document.displayName});
+       } 
+       else {
+         console.log("ERROR!: ", err);
+         response.render("ERROR LOGIN try again please");
+       } 
+    });
+  } 
+         
+  else {
+        response.json({isLogedIn: request.isAuthenticated()}); 
+    }
+});
+/************************************************/
 /******************************/
 // user sessions handlers:
 /******************************/
+/************************************************/
 passport.serializeUser(function(user_id, done) {
   done(null, user_id);
 });
