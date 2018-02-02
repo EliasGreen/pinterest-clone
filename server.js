@@ -148,14 +148,71 @@ app.post("/logout", function(request, response) {
 /************************************************/
 app.post("/user-inf", function(request, response) {
   // get user information
+  // console.log(request.session);
+  // console.log(request.isAuthenticated());
+  if(request.session.hasOwnProperty("passport")) {
+   userModel.findOne({displayName: request.session.passport.user.displayName, username: request.session.passport.user.username}, (err, document) => {
+      if(document === null) response.json({isLogedIn: request.isAuthenticated(), displayName: ""});
+      else {
+           if(!err) {
+             response.json({isLogedIn: request.isAuthenticated(), displayName: document.displayName, pins: document.pins});
+           } 
+         else {
+           console.log("ERROR!: ", err);
+           response.render("ERROR LOGIN try again please");
+         } 
+      }
+    });
+  } 
+         
+  else {
+        response.json({isLogedIn: request.isAuthenticated()}); 
+    }
+});
+/************************************************/
+app.post("/add-pin", function(request, response) {
+  // get user information
   if(request.session.hasOwnProperty("passport")) {
    userModel.findOne({displayName: request.session.passport.user.displayName, username: request.session.passport.user.username}, (err, document) => {
        if(!err) {
-         response.json({isLogedIn: request.isAuthenticated(), displayName: document.displayName});
+         // update user
+            document.pins.push({img_url: request.body["imgurl"], description: request.body["description"]});
+            document.save(function (err) {
+              if (err) throw err;
+              response.json({error: "none"});
+            });
        } 
        else {
          console.log("ERROR!: ", err);
-         response.render("ERROR LOGIN try again please");
+         response.render("ERROR again please");
+       } 
+    });
+  } 
+         
+  else {
+        response.json({isLogedIn: request.isAuthenticated()}); 
+    }
+});
+/************************************************/
+app.post("/delete-pin", function(request, response) {
+  // get user information
+  if(request.session.hasOwnProperty("passport")) {
+   userModel.findOne({displayName: request.session.passport.user.displayName, username: request.session.passport.user.username}, (err, document) => {
+       if(!err) {
+         function whatShouldDelete(value) {
+            if((value.img_url == request.body["imgurl"]) && (value.description == request.body["description"])) return true;
+            else return false;
+          }
+         // update user
+            document.pins.splice(document.pins.findIndex(whatShouldDelete), 1);
+            document.save(function (err) {
+              if (err) throw err;
+              response.json({error: "none"});
+            });
+       } 
+       else {
+         console.log("ERROR!: ", err);
+         response.render("ERROR again please");
        } 
     });
   } 

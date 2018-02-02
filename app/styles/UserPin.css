@@ -1,0 +1,65 @@
+/* PINS block */
+#pin-add {
+  border: #fb1756 5px solid;
+  border-radius: 10px;
+  float: left;
+  margin: 10px;
+  width: 200px;
+  height: 200px;
+}
+
+#add-btn {
+  color: #214e6d;
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 75px;
+  font-family: cursive;
+}
+#add-btn:hover {
+  color: #2700ff;
+  cursor: pointer;
+}
+
+.pins {
+  margin-top: 10px;
+}
+.pins:after{
+    clear: both;
+    content: "";
+    display: block;
+}
+.pin {
+  border: #fb1756 5px solid;
+  border-radius: 10px;
+  float: left;
+  margin: 10px;
+}
+.pin-img {
+  width: 100%;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 8px;
+}
+.description {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-family: cursive;
+  overflow: hidden;
+}
+
+.delete {
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  font-family: cursive;
+  background: #888888;
+  color: #6d6d6d;
+}
+
+.delete:hover {
+  background: rgba(212, 226, 0, 0.62);
+  color: black;
+  cursor: pointer;
+}
