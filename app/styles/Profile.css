@@ -16,40 +16,159 @@
   }
 }
 
-/* MASONRY */
-/* ---- grid ---- */
-
-.grid {
-  background: #EEE;
-  max-width: 1200px;
-}
-
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- grid-item ---- */
-
-.grid-sizer,
-.grid-item {
-  width: 20%;
-}
-
-.grid-item {
-  height: 120px;
+/* PINS block */
+#pin-add {
+  border: #fb1756 5px solid;
+  border-radius: 10px;
   float: left;
-  background: #D26;
-  border: 2px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
+  margin: 10px;
+  width: 200px;
+  height: 200px;
 }
 
-.grid-item--width2 { width:  40%; }
-.grid-item--width3 { width:  60%; }
+#add-btn {
+  color: #214e6d;
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 75px;
+  font-family: cursive;
+}
+#add-btn:hover {
+  color: #2700ff;
+  cursor: pointer;
+}
 
-.grid-item--height2 { height: 200px; }
-.grid-item--height3 { height: 260px; }
-.grid-item--height4 { height: 360px; }
+.pins {
+  margin-top: 10px;
+}
+.pins:after{
+    clear: both;
+    content: "";
+    display: block;
+}
+.pin {
+  border: #fb1756 5px solid;
+  border-radius: 10px;
+  float: left;
+  margin: 10px;
+}
+.pin-img {
+  width: 100%;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 8px;
+}
+.description {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-family: cursive;
+  overflow: hidden;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    text-align: center;
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {
+  text-align: center;
+  padding: 2px 16px;
+}
+
+.modal-footer {
+    text-align: center;
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+#add-new-pin {
+    width: 30%;
+    border-radius: 10px;
+    margin: auto;
+    background: #970e34;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: cursive;
+}
+
+#add-new-pin:hover {
+ color: #a6e6fe;
+ cursor: pointer;
+}
+
+#h-modal {
+  font-family: cursive;
+  font-size: 30px;
+}
+
+.label {
+  font-family: cursive;
+  margin: 10px
+}
+
+.input {
+  padding: 3px;
+  margin-bottom: 10px;
+}

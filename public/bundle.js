@@ -828,175 +828,6 @@ var createPath = function createPath(location) {
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (process.env.NODE_ENV !== 'production') {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(5);
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (process.env.NODE_ENV !== 'production') {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createLocation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(10);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-
-
-
-
-var createLocation = function createLocation(path, state, key, currentLocation) {
-  var location = void 0;
-  if (typeof path === 'string') {
-    // Two-arg form: push(path, state)
-    location = Object(__WEBPACK_IMPORTED_MODULE_2__PathUtils__["d" /* parsePath */])(path);
-    location.state = state;
-  } else {
-    // One-arg form: push(location)
-    location = _extends({}, path);
-
-    if (location.pathname === undefined) location.pathname = '';
-
-    if (location.search) {
-      if (location.search.charAt(0) !== '?') location.search = '?' + location.search;
-    } else {
-      location.search = '';
-    }
-
-    if (location.hash) {
-      if (location.hash.charAt(0) !== '#') location.hash = '#' + location.hash;
-    } else {
-      location.hash = '';
-    }
-
-    if (state !== undefined && location.state === undefined) location.state = state;
-  }
-
-  try {
-    location.pathname = decodeURI(location.pathname);
-  } catch (e) {
-    if (e instanceof URIError) {
-      throw new URIError('Pathname "' + location.pathname + '" could not be decoded. ' + 'This is likely caused by an invalid percent-encoding.');
-    } else {
-      throw e;
-    }
-  }
-
-  if (key) location.key = key;
-
-  if (currentLocation) {
-    // Resolve incomplete/relative pathname relative to current location.
-    if (!location.pathname) {
-      location.pathname = currentLocation.pathname;
-    } else if (location.pathname.charAt(0) !== '/') {
-      location.pathname = Object(__WEBPACK_IMPORTED_MODULE_0_resolve_pathname__["default"])(location.pathname, currentLocation.pathname);
-    }
-  } else {
-    // When there is no prior location and pathname is empty, set it to /
-    if (!location.pathname) {
-      location.pathname = '/';
-    }
-  }
-
-  return location;
-};
-
-var locationsAreEqual = function locationsAreEqual(a, b) {
-  return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && Object(__WEBPACK_IMPORTED_MODULE_1_value_equal__["default"])(a.state, b.state);
-};
-
-/***/ }),
-/* 14 */
 /***/ (function(module, exports) {
 
 /*
@@ -1078,7 +909,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 15 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1460,6 +1291,175 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (process.env.NODE_ENV !== 'production') {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(5);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (process.env.NODE_ENV !== 'production') {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function warning(condition, format) {
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
+    }
+
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(10);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
+var createLocation = function createLocation(path, state, key, currentLocation) {
+  var location = void 0;
+  if (typeof path === 'string') {
+    // Two-arg form: push(path, state)
+    location = Object(__WEBPACK_IMPORTED_MODULE_2__PathUtils__["d" /* parsePath */])(path);
+    location.state = state;
+  } else {
+    // One-arg form: push(location)
+    location = _extends({}, path);
+
+    if (location.pathname === undefined) location.pathname = '';
+
+    if (location.search) {
+      if (location.search.charAt(0) !== '?') location.search = '?' + location.search;
+    } else {
+      location.search = '';
+    }
+
+    if (location.hash) {
+      if (location.hash.charAt(0) !== '#') location.hash = '#' + location.hash;
+    } else {
+      location.hash = '';
+    }
+
+    if (state !== undefined && location.state === undefined) location.state = state;
+  }
+
+  try {
+    location.pathname = decodeURI(location.pathname);
+  } catch (e) {
+    if (e instanceof URIError) {
+      throw new URIError('Pathname "' + location.pathname + '" could not be decoded. ' + 'This is likely caused by an invalid percent-encoding.');
+    } else {
+      throw e;
+    }
+  }
+
+  if (key) location.key = key;
+
+  if (currentLocation) {
+    // Resolve incomplete/relative pathname relative to current location.
+    if (!location.pathname) {
+      location.pathname = currentLocation.pathname;
+    } else if (location.pathname.charAt(0) !== '/') {
+      location.pathname = Object(__WEBPACK_IMPORTED_MODULE_0_resolve_pathname__["default"])(location.pathname, currentLocation.pathname);
+    }
+  } else {
+    // When there is no prior location and pathname is empty, set it to /
+    if (!location.pathname) {
+      location.pathname = '/';
+    }
+  }
+
+  return location;
+};
+
+var locationsAreEqual = function locationsAreEqual(a, b) {
+  return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && Object(__WEBPACK_IMPORTED_MODULE_1_value_equal__["default"])(a.state, b.state);
+};
+
+/***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1475,7 +1475,7 @@ function updateLink (link, options, obj) {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(8);
-  var warning = __webpack_require__(12);
+  var warning = __webpack_require__(14);
   var ReactPropTypesSecret = __webpack_require__(17);
   var loggedTypeFailures = {};
 }
@@ -4006,7 +4006,7 @@ render((
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(7),n=__webpack_require__(11),p=__webpack_require__(5),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(7),n=__webpack_require__(13),p=__webpack_require__(5),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -4043,9 +4043,9 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var _assign = __webpack_require__(7);
-var emptyObject = __webpack_require__(11);
+var emptyObject = __webpack_require__(13);
 var invariant = __webpack_require__(8);
-var warning = __webpack_require__(12);
+var warning = __webpack_require__(14);
 var emptyFunction = __webpack_require__(5);
 var checkPropTypes = __webpack_require__(16);
 
@@ -5448,7 +5448,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(27),B=__webpack_require__(7),C=__webpack_require__(5),ba=__webpack_require__(28),da=__webpack_require__(29),ea=__webpack_require__(30),fa=__webpack_require__(31),ia=__webpack_require__(32),D=__webpack_require__(11);
+var aa=__webpack_require__(0),l=__webpack_require__(27),B=__webpack_require__(7),C=__webpack_require__(5),ba=__webpack_require__(28),da=__webpack_require__(29),ea=__webpack_require__(30),fa=__webpack_require__(31),ia=__webpack_require__(32),D=__webpack_require__(13);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -5747,7 +5747,7 @@ if (process.env.NODE_ENV !== "production") {
 
 var React = __webpack_require__(0);
 var invariant = __webpack_require__(8);
-var warning = __webpack_require__(12);
+var warning = __webpack_require__(14);
 var ExecutionEnvironment = __webpack_require__(27);
 var _assign = __webpack_require__(7);
 var emptyFunction = __webpack_require__(5);
@@ -5756,7 +5756,7 @@ var getActiveElement = __webpack_require__(29);
 var shallowEqual = __webpack_require__(30);
 var containsNode = __webpack_require__(31);
 var focusNode = __webpack_require__(32);
-var emptyObject = __webpack_require__(11);
+var emptyObject = __webpack_require__(13);
 var checkPropTypes = __webpack_require__(16);
 var hyphenateStyleName = __webpack_require__(59);
 var camelizeStyleName = __webpack_require__(61);
@@ -21364,7 +21364,7 @@ BrowserRouter.propTypes = {
 
 var emptyFunction = __webpack_require__(5);
 var invariant = __webpack_require__(8);
-var warning = __webpack_require__(12);
+var warning = __webpack_require__(14);
 var assign = __webpack_require__(7);
 
 var ReactPropTypesSecret = __webpack_require__(17);
@@ -23680,7 +23680,7 @@ Redirect.contextTypes = {
 /* unused harmony reexport createHashHistory */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createMemoryHistory__ = __webpack_require__(82);
 /* unused harmony reexport createMemoryHistory */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(15);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(10);
@@ -23705,7 +23705,7 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(39);
@@ -24009,7 +24009,7 @@ var createBrowserHistory = function createBrowserHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(39);
@@ -24329,7 +24329,7 @@ var createHashHistory = function createHashHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(23);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -26116,7 +26116,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(12)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -26151,7 +26151,7 @@ if(false) {
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(11)(false);
 // imports
 
 
@@ -26275,7 +26275,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(12)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -26310,7 +26310,7 @@ if(false) {
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(11)(false);
 // imports
 
 
@@ -26362,7 +26362,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(12)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -26397,7 +26397,7 @@ if(false) {
 /* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(11)(false);
 // imports
 
 
@@ -26417,18 +26417,80 @@ const Link = __webpack_require__(6).Link
 const style = __webpack_require__(126);
 // other components
 const Header = __webpack_require__(26);
-
-const masonryOptions = {
-    transitionDuration: 0
-};
+const UserPin = __webpack_require__(128);
 
 /* the "Profile" component. Showsuser profile and allows user to add a card" */
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        displayName: ""
+        displayName: "",
+        img_url: "",
+        description: "",
+        pins: "loading..."
     }
+    this.handleAddPin = this.handleAddPin.bind(this);
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  /*******************/
+  // Handlers
+  /*******************/
+  handleAddPin() {
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/add-pin', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    let body = 'imgurl=' + encodeURIComponent(this.state.img_url) +
+      '&description=' + encodeURIComponent(this.state.description);
+    
+    xhr.send(body);
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+
+      if(response.error == "none") window.location = "/profile";
+    }
+  }
+  /**************************/
+   handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    if((name == "description") && (value.length > 8)) {
+      return;
+    }
+     else {
+      this.setState({
+        [name]: value
+        });
+     }
+  } 
+  /*******************/
+  handleShowModal() {
+    // Get the modal
+     const modal = document.getElementById('myModal');
+     modal.style.display = "block";
+    // Get the <span> element that closes the modal
+     const span = document.getElementsByClassName("close")[0];
+    // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
   }
   /*******************/
   // Prerender methods
@@ -26449,27 +26511,52 @@ class Profile extends React.Component {
         return;
       }
       let response = JSON.parse(this.responseText);
-
+      let pins = "";
+      if(response.pins !== undefined) {
+        pins = response.pins.map((e) => {
+          return React.createElement(UserPin, {img_url: e.img_url, description: e.description, key: e.img_url+e.description});
+        });
+      }                          
       that.setState({
-        ["displayName"]: response.displayName
+        ["displayName"]: response.displayName,
+        ["pins"]: pins
          });
     }
   }
   /*******************/
-  render(){
+  render() {
     return (
       React.createElement("div", null, 
         React.createElement(Header, null), 
         React.createElement("div", {className: "container"}, 
           React.createElement("h1", {id: "profile-h"}, "Hello, ", this.state.displayName), 
           React.createElement("div", {className: "pins"}, 
-            React.createElement("div", {className: "pin"}, 
-              React.createElement("img", {src: "", className: "pin-img"}), 
-              React.createElement("div", {className: "description"}, "description")
+            React.createElement("div", {id: "pin-add"}, 
+              React.createElement("div", {id: "add-btn", onClick: this.handleShowModal}, "Add new pin")
+            ), 
+            this.state.pins
+          )
+        ), 
+        /* modal for adding new pin */
+        React.createElement("div", {id: "myModal", className: "modal"}, 
+
+          React.createElement("div", {className: "modal-content"}, 
+            React.createElement("div", {className: "modal-header"}, 
+              React.createElement("span", {className: "close"}, "×"), 
+              React.createElement("h2", {id: "h-modal"}, "New Pin")
+            ), 
+            React.createElement("div", {className: "modal-body"}, 
+              React.createElement("div", {className: "label"}, "Img url:"), 
+              React.createElement("input", {type: "text", className: "input", onChange: this.handleInputChange, name: "img_url", required: true}), 
+              React.createElement("div", {className: "label"}, "Description:"), 
+              React.createElement("input", {type: "text", placeholder: "max 9 characters", className: "input", name: "description", onChange: this.handleInputChange, value: this.state.description, required: true})
+            ), 
+            React.createElement("div", {className: "modal-footer"}, 
+              React.createElement("div", {id: "add-new-pin", onClick: this.handleAddPin}, "add")
             )
           )
+
         )
-        /* modal for adding new pin */
       )
     );
   }
@@ -26496,7 +26583,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(12)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -26531,12 +26618,135 @@ if(false) {
 /* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(11)(false);
 // imports
 
 
 // module
-exports.push([module.i, "   \n/* PROFILE block */\n#profile-h {\n text-align: center;\n margin-left: 20px;\n font-family: cursive;\n font-size: 30px;\n}\n\n@media only screen and (max-width: 500px) {\n  #profile-h {\n   text-align: center;\n   margin-left: 20px;\n   font-family: cursive;\n   font-size: 10px;\n  }\n}\n\n/* MASONRY */\n/* ---- grid ---- */\n\n.grid {\n  background: #EEE;\n  max-width: 1200px;\n}\n\n/* clearfix */\n.grid:after {\n  content: '';\n  display: block;\n  clear: both;\n}\n\n/* ---- grid-item ---- */\n\n.grid-sizer,\n.grid-item {\n  width: 20%;\n}\n\n.grid-item {\n  height: 120px;\n  float: left;\n  background: #D26;\n  border: 2px solid #333;\n  border-color: hsla(0, 0%, 0%, 0.5);\n  border-radius: 5px;\n}\n\n.grid-item--width2 { width:  40%; }\n.grid-item--width3 { width:  60%; }\n\n.grid-item--height2 { height: 200px; }\n.grid-item--height3 { height: 260px; }\n.grid-item--height4 { height: 360px; }", ""]);
+exports.push([module.i, "   \n/* PROFILE block */\n#profile-h {\n text-align: center;\n margin-left: 20px;\n font-family: cursive;\n font-size: 30px;\n}\n\n@media only screen and (max-width: 500px) {\n  #profile-h {\n   text-align: center;\n   margin-left: 20px;\n   font-family: cursive;\n   font-size: 10px;\n  }\n}\n\n/* PINS block */\n#pin-add {\n  border: #fb1756 5px solid;\n  border-radius: 10px;\n  float: left;\n  margin: 10px;\n  width: 200px;\n  height: 200px;\n}\n\n#add-btn {\n  color: #214e6d;\n  text-align: center;\n  font-weight: bold;\n  font-size: 25px;\n  margin-top: 75px;\n  font-family: cursive;\n}\n#add-btn:hover {\n  color: #2700ff;\n  cursor: pointer;\n}\n\n.pins {\n  margin-top: 10px;\n}\n.pins:after{\n    clear: both;\n    content: \"\";\n    display: block;\n}\n.pin {\n  border: #fb1756 5px solid;\n  border-radius: 10px;\n  float: left;\n  margin: 10px;\n}\n.pin-img {\n  width: 100%;\n  max-width: 300px;\n  max-height: 300px;\n  border-radius: 8px;\n}\n.description {\n  text-align: center;\n  color: black;\n  font-weight: bold;\n  font-family: cursive;\n  overflow: hidden;\n}\n\n/* The Modal (background) */\n.modal {\n    display: none; /* Hidden by default */\n    position: fixed; /* Stay in place */\n    z-index: 1; /* Sit on top */\n    padding-top: 100px; /* Location of the box */\n    left: 0;\n    top: 0;\n    width: 100%; /* Full width */\n    height: 100%; /* Full height */\n    overflow: auto; /* Enable scroll if needed */\n    background-color: rgb(0,0,0); /* Fallback color */\n    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\n\n/* Modal Content */\n.modal-content {\n    position: relative;\n    background-color: #fefefe;\n    margin: auto;\n    padding: 0;\n    border: 1px solid #888;\n    width: 80%;\n    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n    -webkit-animation-name: animatetop;\n    -webkit-animation-duration: 0.4s;\n    animation-name: animatetop;\n    animation-duration: 0.4s\n}\n\n/* Add Animation */\n@-webkit-keyframes animatetop {\n    from {top:-300px; opacity:0} \n    to {top:0; opacity:1}\n}\n\n@keyframes animatetop {\n    from {top:-300px; opacity:0}\n    to {top:0; opacity:1}\n}\n\n/* The Close Button */\n.close {\n    color: white;\n    float: right;\n    font-size: 28px;\n    font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n    color: #000;\n    text-decoration: none;\n    cursor: pointer;\n}\n\n.modal-header {\n    text-align: center;\n    padding: 2px 16px;\n    background-color: #5cb85c;\n    color: white;\n}\n\n.modal-body {\n  text-align: center;\n  padding: 2px 16px;\n}\n\n.modal-footer {\n    text-align: center;\n    padding: 2px 16px;\n    background-color: #5cb85c;\n    color: white;\n}\n\n#add-new-pin {\n    width: 30%;\n    border-radius: 10px;\n    margin: auto;\n    background: #970e34;\n    font-size: 30px;\n    margin-bottom: 10px;\n    margin-top: 10px;\n    font-family: cursive;\n}\n\n#add-new-pin:hover {\n color: #a6e6fe;\n cursor: pointer;\n}\n\n#h-modal {\n  font-family: cursive;\n  font-size: 30px;\n}\n\n.label {\n  font-family: cursive;\n  margin: 10px\n}\n\n.input {\n  padding: 3px;\n  margin-bottom: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const React = __webpack_require__(0);
+const Link = __webpack_require__(6).Link
+// style
+const style = __webpack_require__(129);
+
+/* the UserPin component (contains: pin card). Shows pin card in user profile*/
+class UserPin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      img_url: this.props.img_url,
+      description: this.props.description
+    };
+    this.handleDeletePin = this.handleDeletePin.bind(this);
+  }
+  /*******************/
+  // Handlers
+  /*******************/
+  handleDeletePin() {
+    let that = this;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/delete-pin', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    let body = 'imgurl=' + encodeURIComponent(this.state.img_url) +
+      '&description=' + encodeURIComponent(this.state.description);
+    
+    xhr.send(body);
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      if (this.status != 200) {
+        alert( 'error: ' + (this.status ? this.statusText : 'request has not been set') );
+        return;
+      }
+      let response = JSON.parse(this.responseText);
+
+      if(response.error == "none") window.location = "/profile";
+    }
+  }
+  /*******************/
+  render() {
+    return (
+       React.createElement("div", {className: "pin"}, 
+          React.createElement("img", {src: this.props.img_url, className: "pin-img"}), 
+          React.createElement("div", {className: "description"}, this.props.description), 
+          React.createElement("div", {className: "delete", onClick: this.handleDeletePin}, "Delete Pin")
+      )
+  );
+  }
+};
+
+module.exports = UserPin;
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(130);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(12)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../node_modules/css-loader/index.js!./UserPin.css", function() {
+		var newContent = require("!!../../node_modules/css-loader/index.js!./UserPin.css");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* PINS block */\n#pin-add {\n  border: #fb1756 5px solid;\n  border-radius: 10px;\n  float: left;\n  margin: 10px;\n  width: 200px;\n  height: 200px;\n}\n\n#add-btn {\n  color: #214e6d;\n  text-align: center;\n  font-weight: bold;\n  font-size: 25px;\n  margin-top: 75px;\n  font-family: cursive;\n}\n#add-btn:hover {\n  color: #2700ff;\n  cursor: pointer;\n}\n\n.pins {\n  margin-top: 10px;\n}\n.pins:after{\n    clear: both;\n    content: \"\";\n    display: block;\n}\n.pin {\n  border: #fb1756 5px solid;\n  border-radius: 10px;\n  float: left;\n  margin: 10px;\n}\n.pin-img {\n  width: 100%;\n  max-width: 300px;\n  max-height: 300px;\n  border-radius: 8px;\n}\n.description {\n  text-align: center;\n  color: black;\n  font-weight: bold;\n  font-family: cursive;\n  overflow: hidden;\n}\n\n.delete {\n  text-align: center;\n  width: 100%;\n  padding: 10px;\n  font-family: cursive;\n  background: #888888;\n  color: #6d6d6d;\n}\n\n.delete:hover {\n  background: rgba(212, 226, 0, 0.62);\n  color: black;\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
