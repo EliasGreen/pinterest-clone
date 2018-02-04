@@ -14,7 +14,9 @@ class Profile extends React.Component {
         displayName: "",
         img_url: "",
         description: "",
-        pins: "loading..."
+        pins: <div className="loader"></div>,
+        head_block: "",
+        add_block: ""
     }
     this.handleAddPin = this.handleAddPin.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
@@ -106,7 +108,11 @@ class Profile extends React.Component {
       }                          
       that.setState({
         ["displayName"]: response.displayName,
-        ["pins"]: pins
+        ["pins"]: pins,
+        ["head_block"]: <h1 id="profile-h">Hello, {response.displayName}</h1>,
+        ["add_block"]:  <div id="pin-add">
+                    <div id="add-btn" onClick={that.handleShowModal}>Add new pin</div>
+                  </div>
          });
     }
   }
@@ -116,11 +122,9 @@ class Profile extends React.Component {
       <div>
         <Header />
         <div className="container">
-          <h1 id="profile-h">Hello, {this.state.displayName}</h1>
+          {this.state.head_block}
           <div className="pins">
-            <div id="pin-add">
-              <div id="add-btn" onClick={this.handleShowModal}>Add new pin</div>
-            </div>
+            {this.state.add_block}
             {this.state.pins}
           </div>
         </div>

@@ -93,19 +93,25 @@ class Header extends React.Component {
   /*******************/
   render() {
     let buttonLogInOrExit = "";
+    let pipe = "";
+    let prof_block = "";
+    let marginRight = "0px";
     if(this.state.isLogedIn === true) {
       buttonLogInOrExit = <div className="exit-nav" onClick={this.handleExit}>Exit</div>;
+      pipe = <div className="pipe">|</div>;
+      prof_block = <div className="profile-nav"> <Link to={"/profile"} className="profile-nav-link"> Profile </Link> </div>;
     }
     else {
       buttonLogInOrExit = <div className="log-in-nav" onClick={this.handleLogIn}>Log in</div>;
+      marginRight = "90px";
     }
     return (
        <div>
        {/* NAV BAR */}
         <nav className="nav-bar">
-            <div className="all-pins-nav"> <Link to={"/allpins"} className="all-pins-nav-link"> All Pins </Link> </div>
-            <div className="pipe">|</div>
-            <div className="profile-nav"> <Link to={"/profile"} className="profile-nav-link"> Profile </Link> </div>
+            <div className="all-pins-nav" style={{marginRight: marginRight}}> <Link to={"/allpins"} className="all-pins-nav-link"> All Pins </Link> </div>
+            {pipe}
+            {prof_block}
             {buttonLogInOrExit}
         </nav>
       </div>

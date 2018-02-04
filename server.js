@@ -124,7 +124,8 @@ app.get("/", function(request, response) {
 });
 /************************************************/
 app.get("/profile", function(request, response) {
-  response.sendFile(__dirname + '/app/index.html');
+  if(request.isAuthenticated()) response.sendFile(__dirname + '/app/index.html');
+  else response.redirect("/");
 });
 /************************************************/
 app.get("/allpins", function(request, response) {
@@ -134,6 +135,10 @@ app.get("/allpins", function(request, response) {
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/twitter/return',
 passport.authenticate('twitter', { successRedirect: '/profile', failureRedirect: '/' }));
+/************************************************/
+app.get("*", function(request, response) {
+  response.sendFile(__dirname + '/app/index.html');
+});
 /************************************************/
 /******************************/
 // POST REQUESTS
@@ -148,8 +153,6 @@ app.post("/logout", function(request, response) {
 /************************************************/
 app.post("/user-inf", function(request, response) {
   // get user information
-  // console.log(request.session);
-  // console.log(request.isAuthenticated());
   if(request.session.hasOwnProperty("passport")) {
    userModel.findOne({displayName: request.session.passport.user.displayName, username: request.session.passport.user.username}, (err, document) => {
       if(document === null) response.json({isLogedIn: request.isAuthenticated(), displayName: ""});
@@ -168,6 +171,37 @@ app.post("/user-inf", function(request, response) {
   else {
         response.json({isLogedIn: request.isAuthenticated()}); 
     }
+});
+/************************************************/
+app.post("/another-user-inf", function(request, response) {
+  // get information about another user
+   userModel.findOne({displayName: request.body["displayName"], username: request.body["username"]}, (err, document) => {
+      if(document === null) response.json({pins: "error 909"});
+      else {
+           if(!err) {
+             response.json({pins: document.pins});
+           } 
+           else {
+               console.log("ERROR!: ", err);
+               response.render("ERROR try again please");
+           } 
+      }
+    });
+});
+/************************************************/
+app.post("/all-pins", function(request, response) {
+  // get information about another user
+   userModel.find({}, (err, users) => {
+      let pins = [];
+      //deconstruction users into "right" pins:
+      for(let i = 0; i < users.length; i++) {
+        for(let u = 0; u < users[i].pins.length; u++) {
+          pins.push({img_url: users[i].pins[u].img_url, description: users[i].pins[u].description, displayName: users[i].displayName, username: users[i].username});
+        }
+      }
+     
+     response.json({pins: pins});
+   });
 });
 /************************************************/
 app.post("/add-pin", function(request, response) {

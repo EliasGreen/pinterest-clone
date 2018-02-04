@@ -1,16 +1,18 @@
 const React = require('react');
 const Link = require('react-router-dom').Link
 // style
-const style = require('../styles/AllPins');
+const style = require('../styles/Profile');
 // other components
 const Header = require('./Header');
-const Pin = require('./Pin');
+const AnotherUserPin = require('./AnotherUserPin');
 
-/* the "AllPins" component. Shows all pins using "cards" */
-class AllPins extends React.Component {
+/* the "Profile" component. Showsuser profile and allows user to add a card" */
+class AnotherUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        username: this.props.match.params.user.split("$")[1],
+        displayName: this.props.match.params.user.split("$")[0],
         pins: <div className="loader"></div>
     }
   }
@@ -18,13 +20,17 @@ class AllPins extends React.Component {
   // Prerender methods
   /*******************/
   componentWillMount() {
-    //get all pins
+    //get user information
     let that = this;
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/all-pins', true);
+    xhr.open('POST', '/another-user-inf', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    let body = 'displayName=' + encodeURIComponent(this.state.displayName) +
+      '&username=' + encodeURIComponent(this.state.username);
 
-    xhr.send();
+    xhr.send(body);
 
     xhr.onreadystatechange = function() {
       if (this.readyState != 4) return;
@@ -36,7 +42,7 @@ class AllPins extends React.Component {
       let pins = "";
       if(response.pins !== undefined) {
         pins = response.pins.map((e) => {
-          return <Pin img_url={e.img_url} description={e.description} displayName={e.displayName} username={e.username} key={e.description+e.username+e.displayName}/>; 
+          return <AnotherUserPin img_url={e.img_url} description={e.description} key={e.img_url+e.description}/>;
         });
       }                          
       that.setState({
@@ -50,13 +56,14 @@ class AllPins extends React.Component {
       <div>
         <Header />
         <div className="container">
-            <div className="pins">
-              {this.state.pins}
-            </div>
+          <h1 id="profile-h">{this.state.displayName}'s pins</h1>
+          <div className="pins">
+            {this.state.pins}
           </div>
+        </div>
       </div>
     );
   }
 };
 
-module.exports = AllPins;
+module.exports = AnotherUserProfile;
