@@ -1,13 +1,4 @@
 /* PINS block */
-#pin-add {
-  border: #fb1756 5px solid;
-  border-radius: 10px;
-  float: left;
-  margin: 10px;
-  width: 200px;
-  height: 200px;
-}
-
 #add-btn {
   color: #214e6d;
   text-align: center;
@@ -30,7 +21,7 @@
     display: block;
 }
 .pin {
-  border: #fb1756 5px solid;
+  border: #8394a9 5px solid;
   border-radius: 10px;
   float: left;
   margin: 10px;
