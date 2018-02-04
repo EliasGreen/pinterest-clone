@@ -17,6 +17,7 @@ let store = createStore(reducers);
 const Main = require('./components/Main');
 const AllPins = require('./components/AllPins');
 const Profile = require('./components/Profile');
+const AnotherUserProfile = require('./components/AnotherUserProfile');
 
 render((
   <Provider store={store}>
@@ -25,6 +26,7 @@ render((
         <Route exact path="/" component={Main}/>
         <Route exact path="/allpins" component={AllPins}/>
         <Route exact path="/profile" component={Profile}/>
+        <Route exact path="/user/:user" component={AnotherUserProfile}/>
       </div>
     </BrowserRouter>
   </Provider>), document.getElementById('main'));
